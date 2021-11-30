@@ -36,7 +36,7 @@ namespace WindowsService_techtask
             bool enabled = true;
             public Logger() 
             {
-                watcher = new FileSystemWatcher("C:\\Windows\\Temp");
+                watcher = new FileSystemWatcher("C:\\Temp");
                 watcher.Deleted += Watcher_Deleted;
                 watcher.Created += Watcher_Created;
                 watcher.Changed += Watcher_Changed;
@@ -74,14 +74,14 @@ namespace WindowsService_techtask
 
             private void Watcher_Created(object sender, FileSystemEventArgs e)
             {
-                string fileEvent = "создан" + e.FullPath;
+                string fileEvent = "создан " + e.FullPath;
                 string filePath = e.FullPath;
                 RecordEntry(fileEvent, filePath);
             }
 
             private void Watcher_Deleted(object sender, FileSystemEventArgs e)
             {
-                string fileEvent = "Удален" + e.FullPath;
+                string fileEvent = "удален " + e.FullPath;
                 string filePath = e.FullPath;
                 RecordEntry(fileEvent, filePath);
             }
@@ -90,7 +90,7 @@ namespace WindowsService_techtask
             {
                 lock (obj) 
                 {
-                    using (StreamWriter writer = new StreamWriter("C:\\TempLog.txt", true)) 
+                    using (StreamWriter writer = new StreamWriter("C:\\LOG\\TempLog.txt", true)) 
                     {
                         writer.WriteLine(String.Format("{0} файл {1} был {2}",
                             DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
